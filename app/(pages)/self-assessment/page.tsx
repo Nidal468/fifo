@@ -68,7 +68,7 @@ export default function SelfAssessment() {
     const [description, setDescription] = useState<any>('');
     const [error, setError] = useState<any>('');
     const [files, setFiles] = useState<FileList | null>(null);
-    console.log(data);
+    
 
     const handleStartDateChange = (e: { target: { value: any; }; }, next: number) => {
         const newStartDate = e.target.value;
@@ -147,7 +147,7 @@ export default function SelfAssessment() {
         if (files !== null && totalDays !== 0) {
             await api.addSessionData('self_assessment', data);
             await api.addSessionData('self_assessment_files', files);
-            window.location.href = '/disclosures'
+            window.location.href = '/taxstatus'
         } else {
             setError('Make sure to uploaded document list for evidence and select more then 1 days at least')
         }

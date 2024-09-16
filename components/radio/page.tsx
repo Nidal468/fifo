@@ -16,8 +16,8 @@ export function Radio({ data, onSelect }: any) {
             {data?.map((item: any, index: number) => {
                 return (
                     <div className="flex gap-[10px] cursor-pointer items-center" key={index} onClick={() => setIsSelected(index)}>
-                        <div className="w-[18px] h-[18px] rounded-full border border-zinc-400 flex items-center justify-center">
-                            {isSelected === index && <div className="w-[16px] h-[16px] rounded-full border-4 border-blue-500"></div>}
+                        <div className="w-[20px] h-[20px] rounded-full flex items-center justify-center bg-white" style={{border: isSelected === index? '1px solid #FF7352':''}}>
+                            {isSelected === index && <div className="w-[12px] h-[12px] rounded-full" style={{background: '#FF7352'}}></div>}
                         </div>
                         <div className="h-[18px] text-[14px] flex items-center"><h1>{item.name}</h1></div>
                     </div>
