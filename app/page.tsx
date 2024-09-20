@@ -40,13 +40,13 @@ type idStateObj = {
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export default function Home() {
-  const [next, setNext] = useState(3);
+  const [next, setNext] = useState(1);
 
   useEffect(() => {
     const getSession = async () => {
       await api.clearSession();
       var session = await api.getSession()
-      console.log(session)
+      
       // const data = session.dataChunks.find((i: any) => i.key === 'eligibility')?.value;
       // if (data) {
       //   setForm(prev => ({ ...prev, value_1: data.value_1, value_2: data.value_2, email: data.email }))
@@ -204,7 +204,7 @@ function Eligible({ action }: { action: (value: number) => void }) {
   }
 
   function redirectToOAuth(sessionId: string, config: Config) {
-    const redirectUri = `${config.apiUrl}/oauth/id.me`;
+    const redirectUri = `${config.apiUrl}/idme`;
 
     const idStateObj: idStateObj = {
       session: sessionId,

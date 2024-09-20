@@ -5,27 +5,27 @@ import Link from "next/link";
 import { useState } from "react";
 import { Model } from "@/components/model/page";
 import InfoIcon from '@mui/icons-material/Info';
-
+import { useRouter } from 'next/navigation';
 
 
 export default function Char() {
-    const [next, setNext] = useState(3);
-
+    const [next, setNext] = useState(2);
+    const router = useRouter();
     const ModelData: { data: JSX.Element, color: string }[] = [
         {
             data: <Successful action={() => setNext(1)} />,
             color: '#F1F2F0'
         },
         {
-            data: <Successful1 action={() => setNext(1)} />,
+            data: <Successful1 action={() => setNext(2)} />,
             color: '#F1F2F0'
         },
         {
-            data: <Successful2 action={() => setNext(1)} />,
+            data: <Successful2 action={() => setNext(3)} />,
             color: '#F1F2F0'
         },
         {
-            data: <Successful3 action={() => setNext(1)} />,
+            data: <Successful3 action={() => router.push('/review')} />,
             color: ''
         }
     ];
@@ -68,35 +68,44 @@ function Successful2({ action }: { action: () => void }) {
             <h1 className="text-[25px]">Congratulations!</h1>
             <p className="text-[18px]">You are eligible for a credit amount of $n,nnn from the IRS, plus at least nn.n% interest accrued since April 15, 2021.</p>
             <p className="text-[14px] font-medium">fifo.com is here to streamline your credit submission from start to finish, putting together an amended tax return for 2021 and connecting you with a licensed tax professional to verify, sign, and file the return on your behalf. </p>
-            <Button text="Continue" width="150px" clicked={() => { }} />
+            <Button text="Continue" width="150px" clicked={action} />
         </div>
     )
 }
 
 function Successful3({ action }: { action: () => void }) {
+    const [selected, isSelected] = useState(0);
+
     return (
         <div className="flex flex-col gap-[20px] font-bold">
             <h1 className="text-[25px]">We offer the following options:</h1>
-            <div className="w-full p-[10px] md:p-[20px] text-zinc-600 text-[12px] md:text-[14px] flex flex-col gap-[5px] md:gap-[15px] rounded-[6px]" style={{ background: '#F1F2F0' }}>
-                <div className='w-full flex items-center justify-between gap-[10px]'><input type="checkbox"/><h1>Pay on receipt (pay only after the IRS has delivered the credit)</h1><InfoIcon sx={{ fontSize: 20, color: '#4682B4' }} /></div>
+            <div className="w-full p-[10px] md:p-[20px] text-zinc-600 text-[12px] md:text-[14px] flex flex-col gap-[5px] md:gap-[15px] rounded-[6px]" style={{ background: '#F1F2F0' }} onClick={() => isSelected(0)}>
+                <div className='w-full flex items-center justify-between gap-[10px]'>
+                    <input type="checkbox" checked={selected === 0 ? true : false} readOnly />
+                    <h1>Pay on receipt (pay only after the IRS has delivered the credit)</h1>
+                    <InfoIcon sx={{ fontSize: 20, color: '#4682B4' }} />
+                </div>
 
                 <p>Total fee: $n,nnn</p>
                 <p>You receive: $n,nnn plus accrued interest</p>
             </div>
-            <div className="w-full p-[10px] md:p-[20px] text-zinc-600 text-[12px] md:text-[14px] flex flex-col gap-[5px] md:gap-[15px] rounded-[6px]" style={{ background: '#F1F2F0' }}>
+            <div className="w-full p-[10px] md:p-[20px] text-zinc-600 text-[12px] md:text-[14px] flex flex-col gap-[5px] md:gap-[15px] rounded-[6px]" style={{ background: '#F1F2F0' }} onClick={() => isSelected(1)}>
                 <div className='w-full flex items-center justify-between gap-[10px]'>
-                    <input type="checkbox"/><h1>Pay on receipt (pay only after the IRS has delivered the credit)</h1><InfoIcon sx={{ fontSize: 20, color: '#4682B4' }} /></div>
+                    <input type="checkbox" checked={selected === 1 ? true : false} readOnly /><h1>Pay on receipt (pay only after the IRS has delivered the credit)</h1><InfoIcon sx={{ fontSize: 20, color: '#4682B4' }} /></div>
 
                 <p>Total fee: $n,nnn (save 5%)</p>
                 <p>You receive: $n,nnn plus accrued interest</p>
             </div>
-            <div className="w-full p-[10px] md:p-[20px] text-zinc-600 text-[12px] md:text-[14px] flex flex-col gap-[5px] md:gap-[15px] rounded-[6px]" style={{ background: '#F1F2F0' }}>
-                <div className='w-full flex items-center justify-between gap-[10px]'><input type="checkbox"/><h1>Cash advance (get paid as soon as your return is submitted to the IRS)</h1><InfoIcon sx={{ fontSize: 20, color: '#4682B4' }} /></div>
-
+            <div className="w-full p-[10px] md:p-[20px] text-zinc-600 text-[12px] md:text-[14px] flex flex-col gap-[5px] md:gap-[15px] rounded-[6px]" style={{ background: '#F1F2F0' }} onClick={() => isSelected(2)}>
+                <div className='w-full flex items-center justify-between gap-[10px]'>
+                    <input type="checkbox" checked={selected === 2 ? true : false} readOnly />
+                    <h1>Cash advance (get paid as soon as your return is submitted to the IRS)</h1>
+                    <InfoIcon sx={{ fontSize: 20, color: '#4682B4' }} />
+                </div>
                 <p>Total fee: $n,nnn plus accrued interest</p>
                 <p>You receive: $n,nnn</p>
             </div>
-            <Button text="Continue" width="150px" clicked={() => { }} />
+            <Button text="Continue" width="150px" clicked={action} />
         </div>
     )
 }

@@ -4,10 +4,6 @@ import { useEffect, useState } from "react";
 import { format, differenceInDays, addDays, isValid, isBefore, isAfter } from 'date-fns';
 import { DayPicker, getDefaultClassNames } from 'react-day-picker';
 import classNames from "react-day-picker/style.module.css";
-// @ts-ignore
-import ApiClient from '@/lib/apiClient';
-// @ts-ignore
-var api = new ApiClient('https://staging.fifo.com');
 
 type formData = {
     selectedDays: Date[];
@@ -17,10 +13,11 @@ export default function DayPickerComponent({
     title,
     minDate,
     maxDate,
-    mode = 'multiple', // 'multiple' or 'range'
+    mode = 'multiple',
+    dates
 }: any) {
     const [formData, setFormData] = useState<formData>({ selectedDays: [] });
-
+   
     const getDatesBetween = (startDate: Date, endDate: Date) => {
         const dates = [];
         let currentDate = new Date(startDate);
@@ -32,14 +29,16 @@ export default function DayPickerComponent({
     };
 
     const handleDateSelect = (selection: any, triggerDate: any, modifiers: any) => {
-        console.log({ selection, triggerDate, modifiers })
+        let newSelectedDays = [];
         if (mode === 'multiple') {
-            setFormData({ selectedDays: (selection || [])});
+            newSelectedDays = selection || [];
+            setFormData({ selectedDays: newSelectedDays });
         } else if (selection?.from && selection?.to) {
-            setFormData({ selectedDays: getDatesBetween(selection.from, selection.to)});
-        } else {
-            
+            newSelectedDays = getDatesBetween(selection.from, selection.to);
+            setFormData({ selectedDays: newSelectedDays });
         }
+        
+        dates(newSelectedDays);
     };
 
     const getRangeFromSelectedDays = () => {

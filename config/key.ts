@@ -10,7 +10,7 @@ export const config:Config = {
     title: 'fifo.com',
     titleFull: 'Onboarding - fifo.com',
 
-    apiUrl: 'https://test.coloredmanga.net',
+    apiUrl: 'http://localhost:8000',
     idMeClientId: 'eca0f4389a9faa95c359fd869a29c1b2',
 
     clientOnboardingSteps: [
