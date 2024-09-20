@@ -15,16 +15,11 @@ type formData = {
 
 export default function DayPickerComponent({
     title,
-    stepKey,
-    nextPath,
     minDate,
     maxDate,
-    maxClaimableDays,
     mode = 'multiple', // 'multiple' or 'range'
-    children
 }: any) {
     const [formData, setFormData] = useState<formData>({ selectedDays: [] });
-    const defaultClassNames = getDefaultClassNames();
 
     const getDatesBetween = (startDate: Date, endDate: Date) => {
         const dates = [];
@@ -39,11 +34,11 @@ export default function DayPickerComponent({
     const handleDateSelect = (selection: any, triggerDate: any, modifiers: any) => {
         console.log({ selection, triggerDate, modifiers })
         if (mode === 'multiple') {
-            setFormData({ selectedDays: (selection || []).slice(0, maxClaimableDays) });
+            setFormData({ selectedDays: (selection || [])});
         } else if (selection?.from && selection?.to) {
-            setFormData({ selectedDays: getDatesBetween(selection.from, selection.to).slice(0, maxClaimableDays) });
+            setFormData({ selectedDays: getDatesBetween(selection.from, selection.to)});
         } else {
-            // setFormData({ selectedDays: [] });
+            
         }
     };
 
@@ -55,22 +50,9 @@ export default function DayPickerComponent({
         };
     };
 
-    const getSelectedDaysCount = () => formData.selectedDays.length;
-    const progressPercentage = (getSelectedDaysCount() / maxClaimableDays) * 100;
-
     return (
         <div className="flex flex-col gap-[10px] font-medium items-center justify-center">
             <h1 className="text-2xl font-semibold mb-6">{title}</h1>
-            <div className="bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700 w-[60%]">
-                <div
-                    className={`h-2.5 rounded-full w-full ${progressPercentage === 100 ? 'bg-green-700' : 'bg-orange-500'
-                        }`}
-                    style={{ width: `${progressPercentage}%` }}
-                ></div>
-            </div>
-            <p className="text-sm text-center mb-4">
-                You have selected {getSelectedDaysCount()} of {maxClaimableDays} maximum days.
-            </p>
             <div className="mt-2 flex">
                 <DayPicker
                     mode={mode}

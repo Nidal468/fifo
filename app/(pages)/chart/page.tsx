@@ -84,7 +84,8 @@ function Successful3({ action }: { action: () => void }) {
                 <p>You receive: $n,nnn plus accrued interest</p>
             </div>
             <div className="w-full p-[10px] md:p-[20px] text-zinc-600 text-[12px] md:text-[14px] flex flex-col gap-[5px] md:gap-[15px] rounded-[6px]" style={{ background: '#F1F2F0' }}>
-                <div className='w-full flex items-center justify-between gap-[10px]'><input type="checkbox"/><h1>Pay on receipt (pay only after the IRS has delivered the credit)</h1><InfoIcon sx={{ fontSize: 20, color: '#4682B4' }} /></div>
+                <div className='w-full flex items-center justify-between gap-[10px]'>
+                    <input type="checkbox"/><h1>Pay on receipt (pay only after the IRS has delivered the credit)</h1><InfoIcon sx={{ fontSize: 20, color: '#4682B4' }} /></div>
 
                 <p>Total fee: $n,nnn (save 5%)</p>
                 <p>You receive: $n,nnn plus accrued interest</p>
